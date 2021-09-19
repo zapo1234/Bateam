@@ -10,4 +10,4 @@ via github package serialize version git clone https://github.com/symfony/serial
 # entrer composer update.
 
 # aller sur la route du projet http://127.0.0.1:8000/movies 
-vous avez un model movies, 2 controller ( src/Controller) et un model dans src/entity(Movies).
+vous avez un model movies, 2 controller ( src/Controller) et un model dans src/entity(Movies)
