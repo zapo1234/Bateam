@@ -18,6 +18,7 @@ NB: just pour bien faire le serveur on utilise pas de base données ni doctrine 
 
 # dans le dossier Src/Controller vous avez 2 controller qui traite les foonctionnalités(afficher toutes la liste de tableau ) et les fonctions Ajax retour
 # dans le dossier Src/Entity un modèle Movies.php 
+# dans le dossier public Js vous avez des scripts javascript/jquery Ajax développés.
 # le controller Action qui travaille sur les fonctionnalités et boutons 
 
 Front utiliser (Jquery/javascript/ajax)
