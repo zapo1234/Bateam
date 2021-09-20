@@ -22,4 +22,4 @@ NB: just pour bien faire le serveur on utilise pas de base données ni doctrine 
 # le controller Action qui travaille sur les fonctionnalités et boutons 
 
 Front utiliser (Jquery/javascript/ajax)
-Back Symfony 5.3.7 et Php 7.3
+Back Symfony 5.3.7 et Php 7.3.
