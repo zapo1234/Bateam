@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Movies;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +18,6 @@ class MoviesController extends AbstractController
      */
     public function index(SerializerInterface $serializer): Response
     {
-        
     // recuperer les datas du fichier json dans une variable
   // denormalizer les données pour obtenir un object 
   // Afficher  dans un tableau la liste de toutes les informations u fichiers json
@@ -61,17 +59,13 @@ class MoviesController extends AbstractController
     $data = convert_to_utf8_recursively($donnees);
 	//deserialize fichier json
     $response = $serializer->deserialize($data, Movies::class.'[]', 'json');
-
     // créer un tableau pour recupérer les pays par nnationnalité
-
     $pays = [];
     foreach($response as  $movies) {
      $result = $movies->getNationalite();
      $pays [] = $result;
-
-    }
-
-    // suprimer les sortie de doublous
+   }
+   // suprimer les sortie de doublous
     $pays = array_unique($pays);
   
       return $this->render('movies/index.html.twig', [
@@ -80,6 +74,5 @@ class MoviesController extends AbstractController
             'pays'  => $pays,
         ]);
     }
-
 
 }

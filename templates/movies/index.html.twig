@@ -9,7 +9,7 @@
     th{width:20%;font-family:arial;border:1px solid black;text-align:center;} td{border:1px solid black;text-align:center;}
     input{width:30%;height:40px;} .button {margin-left:40%;width:900px;} .tir,.dic,.dir{height:40px;cursor:pointer;border-radius:10px;background:#15A1F1;
     border:2px solid #15A1F1;font-size:16px;color:white;} #pak{display:none;position:absolute;top:0;left: 0;width:100%;height: 100%;background-color: black;z-index:1;opacity: 0.7;}
-    #results,#result,#resul{padding:2%;width:30%;position:absolute;top:100px;left:30%;height:300px;font-size:15px;background:white;display:none;z-index:3} .movie{font-size:13px;}
+    #results,#result,#resul,#country{padding:2%;width:30%;position:absolute;top:100px;left:30%;height:300px;font-size:15px;background:white;display:none;z-index:3} .movie{font-size:13px;}
     #pays{height:40px;}
 </style>
 
@@ -38,6 +38,7 @@
    </div>
 
    <div id="resultats_search"></div>
+   <div id="country"></div><!--afficher les film par pays identiques -->
    <div id="results"></div><!--retour ajax les top 5 films les plus consultés -->
    <div id="result"></div><!-- retour ajax des fils avec le radios -->
     <div id="resul"></div><!-- retour ajax des fils avec le radios -->
@@ -51,8 +52,7 @@
    <th>Année de production</th>
    <th>Nationnalité</th>
    <th>Dernière diffusion</th>
-   
-   {% for movies in response %}
+    {% for movies in response %}
           <tr>
             <td>{{ movies.nom }}</td>
             <td>{{ movies.realisateur}}</td>
@@ -61,8 +61,7 @@
             <td>{{ movies.derniereDiffusion}}</td>
             </tr>
     {% endfor %}
-
-    </table>
+ </table>
    
  </div>
 {% endblock %}
@@ -70,122 +69,8 @@
  {% block javascripts %}
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.min.js"></script>  
-     <script src="{{ asset('js/scripts.js') }}"></script>
-     
-      <script>
-     $(document).ready(function(){
-     // recherche du nom du film ou rélisateur
-     $('#search').keyup(function(){
-     var search = $('#search').val();
-
-     if(search.length > 0) {
-       $.ajax({
-	  type: 'POST', // on envoi les donnes
-	  url:  '/ajax',// on traite par la fichier
-      data : {search:search},
-	 success:function(data) { // on traite le fichier recherche apres le retour
-     $('#resultats_search').html(data);
-     $('#movies_list').css('display','none');
-	  }
-	
-	  });
-
-      }
-      });
-
-     
-       $('#search').blur(function(){
-      $('#movies_list').css('display','block'); // afficher le tableau initial 
-      $('#resultats_search').css('display','none');// cacher le tableau de la requete ajax
-       });
-
-
-       // actions clic sur les boutons
-       // afficher les 5 fims les plus diffusées
-        $('.dir').click(function(){
-       $.ajax({
-	    type: 'POST', // on envoi les donnes
-         url:  '/ajax1',// on traite par la fichier
-	    success:function(data) { // on traite le fichier recherche apres le retour
-        $('#results').html(data);
-        $('#pak').css('display','block');
-        $('#results').css('display','block');
-        
+     <script src="{{ asset('js/search.js') }}"></script>
     
-	  }
-	
-	  });
-
-      });
-
-
-      // actions clic sur les boutons
-       // Top 5 des fimls avec le meilleurs radios
-        $('.dic').click(function(){
-       $.ajax({
-	    type: 'POST', // on envoi les donnes
-         url:  '/ajax2',// on traite par la fichier
-	    success:function(data) { // on traite le fichier recherche apres le retour
-        $('#result').html(data);
-        $('#pak').css('display','block');
-        $('#result').css('display','block');
-        
-      }
-	
-	  });
-
-      });
-
-
-       // actions clic sur les boutons
-       // Top 5 des fimls avec le meilleurs radios
-        $('.tir').click(function(){
-       $.ajax({
-	    type: 'POST', // on envoi les donnes
-         url:  '/ajax3',// on traite par la fichier
-	    success:function(data) { // on traite le fichier recherche apres le retour
-        $('#resul').html(data);
-        $('#pak').css('display','block');
-        $('#resul').css('display','block');
-        
-      }
-	
-	  });
-
-      });
-
-
-      $('#pays').change(function() {
-      
-      var pays = $('#pays').val();
-
-       $.ajax({
-	    type: 'POST', // on envoi les donnes
-         url:  '/ajax3',// on traite par la fichier
-	    success:function(data) { // on traite le fichier recherche apres le retour
-        $('#resul').html(data);
-        $('#pak').css('display','block');
-        $('#resul').css('display','block');
-        
-      }
-	
-	  });
-      
-      });
-
-
-     $('#pak').click(function() {
-      $('#results').css('display','none');
-      $('#result').css('display','none');
-      $('#resul').css('display','none');
-      $('#pak').css('display','none');
-      
-      });
-
-      });
-     
-     </script>
-     
      {% endblock %}
    
   

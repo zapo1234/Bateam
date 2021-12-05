@@ -6,28 +6,20 @@ namespace App\Entity;
 class Movies
 {
    
-
-   
     private $nom;
 
-   
     private $realisateur;
 
-    
     private $anneeProduction;
 
-    
     private $nationalite;
 
     private $derniereDiffusion;
 
-    
     private $nbDiffusion;
 
-    
     private $nbPremierePartie;
 
-    
     private $moyenneDiffusionParAn;
 
     /*
