@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Auteur;
+use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,19 +23,31 @@ class AuteurRepository extends ServiceEntityRepository
     // /**
     //  * @return Auteur[] Returns an array of Auteur objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findLimitAuteurs()
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
             ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    // recupere les auteurs ainsi que les products associé 
+     public function auteurProducts(int $id) 
+
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a,p')
+            ->join('a.prodcuts','p')
+            ->where('a.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getSingleResult();
+        ;
+   }
+    
 
     /*
     public function findOneBySomeField($value): ?Auteur

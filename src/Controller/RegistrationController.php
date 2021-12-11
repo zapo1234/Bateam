@@ -39,8 +39,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // redirection sous admin
-
-            
+             
 
         }
 

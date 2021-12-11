@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\Length;
@@ -22,7 +24,7 @@ class AuteurType extends AbstractType
             'constraints' => [
                 new Length([
                     'min' => 8,
-                    'minMessage' => 'Your password should be at least {{ limit }} characters',
+                    'minMessage' => 'votre nom est de  {{ limit }} caractères minimum',
                     // max length allowed by Symfony for security reasons
                     'max' => 50,
                 ]),
@@ -45,13 +47,37 @@ class AuteurType extends AbstractType
                 'allow_delete' => true
             ])
 
-            // just a regular save button to persist the changes
-            ->add('save', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-success'
-                ]
+            ->add('auteur', EntityType::class, [
+                'placeholder' => 'selectionner un auteur',
+                'mapped'  => 'false',
+                'class' => Auteur::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.name', 'ASC');
+                },
+                'choice_label' => 'name',
+                // self explanatory, this one allows the form to be removed
             ])
-        ;
+           ;
+           
+            $formModifier = function(FormInterface $form, Auteur $auteur) {
+             $products = (null === $auteur) ? [] : $auteur->getProdcuts();
+
+            $form ->add('produit', EntityType::class, [
+                'placeholder' => 'selectionner un auteur',
+                'class' => Product::class,
+                'choices' => $products
+             ]);
+            
+           };
+           
+           $builder->get('auteur')->addEvenListener(
+              FormEvents::POST_SUBMIT,
+               function(FormEvent $event) use ($formModifier) {
+                   $event = $event->getForm()->getData();
+               }
+            )
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

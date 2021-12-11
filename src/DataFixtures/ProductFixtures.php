@@ -13,7 +13,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-        for($nbproduct =1; $nbproduct < 50; $nbproduct++) {
+        for($nbproduct =1; $nbproduct < 10; $nbproduct++) {
          $auteur= $this->getReference('auteur_'. $faker->numberbetween(1,3));
 
          $product = new Product();

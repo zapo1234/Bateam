@@ -16,21 +16,24 @@ class AuteurFixtures extends Fixture
                "name"=>'zapo',
                "lastname"=>'martial',
                "age" => 14,
-               "pays" => "cote d'ivoire"
+               "pays" => "cote d'ivoire",
+               "auteur"=> "zapo ma"
              ],
 
              2=> [
                 "name"=>'kouassi',
                 "lastname"=>'martial',
                 "age" => 22,
-                "pays" => "cote d'ivoire"
+                "pays" => "cote d'ivoire",
+                "auteur" =>"kouakoua agni"
               ],
 
               3 => [
                 "name"=>'konan',
                 "lastname"=>'martial',
                 "age" => 22,
-                "pays" => "cote d'ivoire"
+                "pays" => "cote d'ivoire",
+                "auteur" => "bobi yode"
               ],
  
               
@@ -38,7 +41,8 @@ class AuteurFixtures extends Fixture
                 "name"=>'adou',
                 "lastname"=>'herve',
                 "age" => 22,
-                "pays" => "cote d'ivoire"
+                "pays" => "cote d'ivoire",
+                "auteur" => "mory le molare"
               ],
 
              
@@ -51,6 +55,7 @@ class AuteurFixtures extends Fixture
              $auteur->setLastname($values['lastname']);
              $auteur->setAge($values['age']);
              $auteur->setPays($values['pays']);
+             $auteur->setAuteur($values['auteur']);
              $manager->persist($auteur);
 
              // enregsitrer l'auteur dans une reference 

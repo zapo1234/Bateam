@@ -40,9 +40,14 @@ class Auteur
     private $pays;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="auteur")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="auteur", cascade={"persist"})
      */
     private $prodcuts;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $auteur;
 
     public function __construct()
     {
@@ -133,6 +138,18 @@ class Auteur
     }
 
     public function __toString() {
-      return $this->getName();
+      return $this->getPays();
+    }
+
+    public function getAuteur(): ?string
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(string $auteur): self
+    {
+        $this->auteur = $auteur;
+
+        return $this;
     }
 }
