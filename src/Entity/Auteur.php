@@ -49,6 +49,11 @@ class Auteur
      */
     private $auteur;
 
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $produit;
+
     public function __construct()
     {
         $this->prodcuts = new ArrayCollection();
@@ -149,6 +154,18 @@ class Auteur
     public function setAuteur(string $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getProduit(): ?string
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(string $produit): self
+    {
+        $this->produit = $produit;
 
         return $this;
     }
