@@ -21,9 +21,10 @@ use Knp\Component\Pager\PaginatorInterface; // Nous appelons le bundle KNP Pagin
 class AuteursController extends AbstractController
 {
     private  $entityManager;
-    
-    public function __construct(EntityManagerInterface $entityManager) {
+    private $auteurRepository;
+    public function __construct(EntityManagerInterface $entityManager, AuteurRepository $auteurRepository) {
      $this->entityManager = $entityManager;
+     $this->auteurRepository = $auteurRepository;
 
     }
     
@@ -132,4 +133,6 @@ class AuteursController extends AbstractController
 
         return $this->redirectToRoute('auteurs_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
 }
