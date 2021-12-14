@@ -45,7 +45,7 @@ class Auteur
     private $prodcuts;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $auteur;
 
@@ -143,7 +143,7 @@ class Auteur
     }
 
     public function __toString() {
-      return $this->getPays();
+      return $this->getName();
     }
 
     public function getAuteur(): ?string

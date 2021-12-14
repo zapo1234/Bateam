@@ -18,11 +18,26 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+// 1. Use the CategoriesToNumbersTransformer
+use App\Form\DataTransformer\ProductNumberIdTransformer;
+// 1. Use the CategoriesToNumbersTransformer
+use App\Form\DataTransformer\AuteurNumberIdTransformer;
 
 class AuteurType extends AbstractType
 {
+    
+     // 2. Define the transformer
+     private $transformer;
+
+     // 3. Assign the injected transformer to the class accessible variable
+     public function __construct(AuteurNumberIdTransformer $transformer) {
+         $this->transformer = $transformer;
+     }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $builder
         ->add('name',  TextType::class, [
             'mapped' => false,
@@ -38,7 +53,10 @@ class AuteurType extends AbstractType
         ])
             ->add('lastname')
             ->add('age')
-            ->add('pays')
+            ->add('pays', TextType::class,[
+             'required' =>false
+
+            ])
             // this is the embeded form, the most important things are highlighted at the bottom
             ->add('prodcuts', CollectionType::class, [
                 'entry_type' => ProductType::class,
@@ -61,6 +79,7 @@ class AuteurType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'label' => 'lister les auteurs',
+                'placeholder'=>'choisir un auteur',
                 'required' => 'false',
                 // self explanatory, this one allows the form to be removed
             ])
@@ -93,6 +112,8 @@ class AuteurType extends AbstractType
             )
             ;
         
+        // 4. Add the Data Transformer
+    
     }
 
     public function configureOptions(OptionsResolver $resolver)

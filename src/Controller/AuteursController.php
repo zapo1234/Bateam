@@ -93,7 +93,7 @@ class AuteursController extends AbstractController
     public function edit(Request $request,Auteur $auteur): Response
     {
 
-        if (null === $auteur = $this->entityManager->getRepository(auteur::class)->find($auteur)) {
+        if (null === $auteur = $this->auteurRepository->find($auteur)) {
             throw $this->createNotFoundException('No task found for id '.$auteur);
         }
         

@@ -16,6 +16,7 @@ class Auteur1Type extends AbstractType
             ->add('lastname')
             ->add('age')
             ->add('pays')
+            ->add('produit')
         ;
     }
 

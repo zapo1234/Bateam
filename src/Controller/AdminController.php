@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Auteur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\Auteur1Type;
 use App\Repository\AuteurRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AdminController extends AbstractController
@@ -61,6 +63,30 @@ class AdminController extends AbstractController
         return $this->render('admin/csvlist.html.twig', [
             'controller_name' => 'AdminController',
             'list' => $list
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/new", name="admin_new", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $auteur = new Auteur();
+        $form = $this->createForm(Auteur1Type::class, $auteur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $this->entityManager->persist($auteur);
+            $this->entityManager->flush(); 
+
+            return $this->redirectToRoute('admin_new', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('admin/new.html.twig', [
+            'auteur' => $auteur,
+            'form' => $form,
         ]);
     }
 
