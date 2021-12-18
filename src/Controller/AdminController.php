@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 use App\Entity\Auteur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,6 +8,7 @@ use App\Form\Auteur1Type;
 use App\Repository\AuteurRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Message\EmailNotifications;
 
 class AdminController extends AbstractController
 {
@@ -90,4 +90,31 @@ class AdminController extends AbstractController
         ]);
     }
 
+      /**
+     * @Route("/admin/send", name="admin_email")
+     */
+    public function send(Request $request, EntityManagerInterface $em): Response
+    {
+        $task = new Auteur();
+        $task->setCreatedAt(new DateTime('now'));
+ 
+        $form = $this->createForm(Auteur::class, $task);
+ 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task = $form->getData();
+ 
+            $em->persist($task);
+            $em->flush();
+ 
+            $this->dispatchMessage(new EmailNotifications($task->getContent(), $task->getId(), $task->getUser()->getEmail()));
+ 
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('home/index.html.twig', [
+            'form' => $form->createView(),
+
+        ]);
+
+}
 }
