@@ -55,6 +55,7 @@ class CreateUsercsvCommand extends Command
         $file = $this->uploadsDirectory . 'csv.csv';
         $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
         
+        // encoders 
          $encoders = [new CsvEncoder(), new XmlEncoder()];
          $normalizers = [new ObjectNormalizer()];
 
