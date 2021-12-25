@@ -20,6 +20,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
          $product->setAuteur($auteur);
          $product->setName($faker->realtext(25));
          $product->setDesignation($faker->realtext(30));
+         $product->setFilename($faker->realtext(30));
          $manager->persist($product);
 
         }
