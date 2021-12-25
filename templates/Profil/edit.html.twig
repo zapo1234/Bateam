@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit User</h1>
     {{ form_start(form) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.adresse) }}
-    
-     <a href="{{ path('users_index') }}">back to list</a>
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
 
 {% endblock %}

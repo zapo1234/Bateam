@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auteur index{% endblock %}
+
+{% block body %}
+    <h1>Auteur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Age</th>
+                <th>Pays</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for auteur in auteurs %}
+         {% if is_granted("auteur_view", auteur) %}
+            <tr>
+                <td>{{ auteur.id }}</td>
+                <td>{{ auteur.name }}</td>
+                <td>{{ auteur.lastname }}</td>
+                <td>{{ auteur.age }}</td>
+                <td>{{ auteur.pays }}</td>
+                <td>
+                    <a href="{{ path('auteurs_show', {'id': auteur.id}) }}"><button class="gert">show</button></a>
+                    <a href="{{ path('auteurs_edit', {'id': auteur.id}) }}"><button class="vert">edit</a>
+                     <a href="{{ path('auteurs_delete', {id: auteur.id})}}" data-delete data-token="{{ csrf_token('delete' ~ auteur.id )}}"><button>Supprimer</button></a>
+                    
+                </td>
+            </tr>
+        {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(auteurs) }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <h2>BONJOUR MR {{ app.user.email  }}
+    
+    {% else %}
+
+    <h2>Bonjour simplement</h2>
+
+    {% endif %}
+    
+
+    <a href="{{ path('auteurs_new') }}">Create new</a>
+{% endblock %}

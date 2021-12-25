@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des auteurs {% endblock %}
+
+{% block body %}
+    <h1>Listes des auteurs ciblés</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Age</th>
+                <th>Pays</th>
+                <th>auteur</th>
+                <th>choices</td>
+            </tr>
+        </thead>
+        <tbody>
+        <form action="{{ path('profil_delete_check') }}" name="">
+        {% for auteur in listes %}
+            
+            <tr>
+                <td>{{ auteur.id }}</td>
+                <td>{{ auteur.name }}</td>
+                <td>{{ auteur.lastname }}</td>
+                <td>{{ auteur.age }}</td>
+                <td>{{ auteur.pays }}</td>
+                <td> <a href="{{ path('profil_edit', {'id': auteur.id , 'age':auteur.age}) }}"><button class="vert">edit</a>
+               <td><input type="checkbox" name="{{ auteur.id }}[]"  value="{{ auteur.id }}"></td>
+            </tr>
+        
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+            
+        {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">envoyer</button>
+    </form>
+
+    <a href="{{ path('profil') }}">Ajouter un auteur</a>
+{% endblock %}
