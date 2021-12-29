@@ -8,41 +8,38 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class AuteurNumberIdTransformer implements DataTransformerInterface
 {
-    private $entityManager;
+private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-    
-    /**
-     * Transforms the numeric array (1,2,3,4) to a collection of Categories (Categories[])
-     * 
-     * @param Array|null $categories
-     * @return array
-     */
-    public function transform($AuteurNumber): array
-    {
-        $result = [];
-        
-        if (null === $AuteurNumber) {
-            return $result;
-        }
-        
-        return $this->entityManager
-            ->getRepository(Auteur::class)
-            ->findBy(["id" => $AuteurNumber])
-        ;
-    }
+public function __construct(EntityManagerInterface $entityManager)
+{
+    $this->entityManager = $entityManager;
+}
 
-    /**
-     * In this case, the reverseTransform can be empty.
-     * 
-     * @param type $value
-     * @return array
-     */
-    public function reverseTransform($value): array
-    {
-        return [];
+/**
+ * Transforms the numeric array (1,2,3,4) to a collection of Categories (Categories[])
+ * 
+ * @param Array|null $auteur
+ * @return array
+ */
+public function transform($auteur): ?Auteur
+{
+  if (null === $auteur) {
+        return null;
     }
+     return $this->entityManager
+        ->getRepository(Auteur::class)
+        ->find($auteur)
+    ;
+}
+
+/**
+ * In this case, the reverseTransform can be empty.
+ * 
+ * @param type $value
+ * @return array
+ */
+public function reverseTransform($value)
+{
+    return [];
+}
 }
