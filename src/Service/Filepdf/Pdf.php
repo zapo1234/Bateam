@@ -8,14 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class Pdf  
 {
 
- private $twig;
+private $twig;
 
- public function __construct(Environment $environment)
+public function __construct(Environment $environment)
 {
-    $this->twig = $environment;
+$this->twig = $environment;
 }
 
-public function createPdf(string $namefile)
+public function createPdf(string $twig)
 {
 
 // recupere le nom du fichier
@@ -31,13 +31,13 @@ $pdfOptions->set('defaultFont', 'Arial');
 $dompdf = new Dompdf($pdfOptions);
 
 // Retrieve the HTML generated in our twig file
-    $html = $this->twig->render('test_pdf/'.$namefile, [
-        'title' => "Télecharger votre book"
-    ]);
+$html = $this->twig->render('test_pdf/'.$namefile, [
+'title' => "Télecharger votre book"
+]);
 
 // Load HTML to Dompdf
 $dompdf->loadHtml($html);
-    
+
 // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
 $dompdf->setPaper('A4', 'portrait');
 
