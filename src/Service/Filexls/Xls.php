@@ -1,5 +1,6 @@
 <?php
 namespace App\Service\Filexls;
+use App\Entity\User;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -23,7 +24,24 @@ class Xls
 
  }
 
+ // importer les données du files dans la table user;
+ public function ImportUser(string $filename, string $filePathName)
+ {
+    $spreadsheet = IOFactory::load($fileFolder . $filePathName); // Here we are able to read from the excel file 
+    $row = $spreadsheet->getActiveSheet()->removeRow(1); // I added this to be able to remove the first file line 
+    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true); // here, the read data is turned into an array
 
+}
+
+// importer les données du files Auteur dans la table Auteur
+public function ImportAuteur(string $filename, string $filePathName)
+{
+    $spreadsheet = IOFactory::load($fileFolder . $filePathName); // Here we are able to read from the excel file 
+    $row = $spreadsheet->getActiveSheet()->removeRow(1); // I added this to be able to remove the first file line 
+    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true); // here, the read data is turned into an array
+
+
+}
 
 }
 
